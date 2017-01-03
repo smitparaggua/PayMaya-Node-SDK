@@ -14,3 +14,17 @@ module.exports.Contact = require('./lib/paymaya/model/checkout/Contact');
 module.exports.Item = require('./lib/paymaya/model/checkout/Item');
 module.exports.ItemAmount = require('./lib/paymaya/model/checkout/ItemAmount');
 module.exports.ItemAmountDetails = require('./lib/paymaya/model/checkout/ItemAmountDetails');
+
+var rek = require('rekuire');
+var _ = require('lodash');
+var PaymentVault = rek('payment-vault');
+var constants = rek('Constants');
+
+module.exports = {
+	initPaymentVault: function (options) {
+		options = _.cloneDeep(options);
+		options.baseUrl = options.env == 'production' ?
+			constants.PAYMENTS_PRODUCTION_URL : constants.PAYMENTS_SANDBOX_URL;
+		return new PaymentVault(options);
+	}
+};

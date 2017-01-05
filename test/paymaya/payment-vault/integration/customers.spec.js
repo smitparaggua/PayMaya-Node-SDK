@@ -1,10 +1,11 @@
 var _ = require('lodash');
 var rek = require('rekuire');
-var paymentVault = rek('test-helper').createPaymentVault();
+var testHelper = rek('test-helper');
+var paymentVault = testHelper.createPaymentVault();
 
 describe('Customers', () => {
 	it('allows creation of customer in card vault', () => {
-		var payload = buildCreateCustomerPayload();
+		var payload = testHelper.buildCreateCustomerPayload();
 		return paymentVault.customer.create(payload)
 			.should.eventually.include.keys(
 				'id', 'firstName', 'middleName', 'lastName', 'birthday', 'sex',
@@ -16,7 +17,7 @@ describe('Customers', () => {
 		var customer;
 
 		beforeEach(() => {
-			var payload = buildCreateCustomerPayload();
+			var payload = testHelper.buildCreateCustomerPayload();
 			return paymentVault.customer.create(payload)
 				.then(created => customer = created);
 		});
@@ -43,26 +44,4 @@ describe('Customers', () => {
 				});
 		});
 	});
-
-	function buildCreateCustomerPayload() {
-		return {
-			firstName: 'Ysa',
-			middleName: 'Cruz',
-			lastName: 'Santos',
-			birthday: '1987-10-10',
-			sex: 'F',
-			contact: {
-				phone: '+63(2)1234567890',
-				email: 'ysadcsantos@gmail.com'
-			},
-			billingAddress: {
-				line1: '9F Robinsons Cybergate 3',
-				line2: 'Pioneer Street',
-				city: 'Mandaluyong City',
-				state: 'Metro Manila',
-				zipCode: '12345',
-				countryCode: 'PH'
-			}
-		}
-	}
 });

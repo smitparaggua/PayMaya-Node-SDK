@@ -1,16 +1,13 @@
 var rek = require('rekuire');
-var paymentVault = rek('test-helper').createPaymentVault();
+var testHelper = rek('test-helper');
+var paymentVault = testHelper.createPaymentVault();
 
 describe('PaymentToken', () => {
 	describe('Creation of payment token', () => {
 		it('allows creation of payment token', () => {
-			return paymentVault.paymentToken.create({
-				number: '5123456789012346',
-				expMonth: '05',
-				expYear: '2017',
-				cvc: '111'
-			}).should.eventually.include({ state: 'AVAILABLE' })
-			.and.have.property('paymentTokenId');
+			return paymentVault.paymentToken.create(testHelper.buildCardDetails())
+				.should.eventually.include({ state: 'AVAILABLE' })
+				.and.have.property('paymentTokenId');
 		});
 
 		context('when error occurs', () => {

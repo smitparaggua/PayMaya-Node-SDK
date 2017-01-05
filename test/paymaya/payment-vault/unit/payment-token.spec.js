@@ -1,11 +1,10 @@
-var _ = require('lodash');
 var nock = require('nock');
 var rek = require('rekuire');
 var sinon = require('sinon');
 var PaymentToken = rek('payment-token');
 var PaymayaApiError = rek('PaymayaApiError');
 
-rek('chai-helper');
+rek('test-helper');
 
 
 describe('PaymentToken', () => {

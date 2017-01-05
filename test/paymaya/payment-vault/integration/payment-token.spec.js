@@ -1,14 +1,7 @@
 var rek = require('rekuire');
-var _ = require('lodash');
-var paymaya = rek('index');
-
-var keys = rek('test-config').paymentVault.keys;
-rek('chai-helper');
+var paymentVault = rek('test-helper').createPaymentVault();
 
 describe('PaymentToken', () => {
-	var paymentVaultOptions = { publicKey: keys.public, secretKey: keys.secret, env: 'sandbox' };
-	var paymentVault = paymaya.initPaymentVault(paymentVaultOptions);
-
 	describe('Creation of payment token', () => {
 		it('allows creation of payment token', () => {
 			return paymentVault.paymentToken.create({
@@ -16,7 +9,8 @@ describe('PaymentToken', () => {
 				expMonth: '05',
 				expYear: '2017',
 				cvc: '111'
-			}).should.eventually.include({ state: 'AVAILABLE' });
+			}).should.eventually.include({ state: 'AVAILABLE' })
+			.and.have.property('paymentTokenId');
 		});
 
 		context('when error occurs', () => {

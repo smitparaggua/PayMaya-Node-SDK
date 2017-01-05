@@ -1,6 +1,6 @@
 var rek = require('rekuire');
 var PaymayaApiError = rek('PaymayaApiError');
-rek('chai-helper');
+rek('test-helper');
 
 describe('PaymayaApiError', () => {
 	describe('fromPaymentVaultReply', () => {

@@ -5,7 +5,7 @@ var paymentVault = testHelper.createPaymentVault();
 
 describe('Customers', () => {
 	it('allows creation of customer in card vault', () => {
-		var payload = testHelper.buildCreateCustomerPayload();
+		var payload = testHelper.buildBuyerDetails();
 		return paymentVault.customer.create(payload)
 			.should.eventually.include.keys(
 				'id', 'firstName', 'middleName', 'lastName', 'birthday', 'sex',
@@ -17,7 +17,7 @@ describe('Customers', () => {
 		var customer;
 
 		beforeEach(() => {
-			var payload = testHelper.buildCreateCustomerPayload();
+			var payload = testHelper.buildBuyerDetails();
 			return paymentVault.customer.create(payload)
 				.then(created => customer = created);
 		});

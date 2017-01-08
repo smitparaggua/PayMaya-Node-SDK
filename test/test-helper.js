@@ -15,7 +15,7 @@ module.exports = {
 		return paymaya.initPaymentVault(paymentVaultOptions);
 	},
 
-	buildCreateCustomerPayload: () => {
+	buildBuyerDetails: () => {
 		return {
 			firstName: 'Ysa',
 			middleName: 'Cruz',
@@ -43,6 +43,18 @@ module.exports = {
 			expMonth: '05',
 			expYear: '2017',
 			cvc: '111'
+		}
+	},
+
+	buildCreateCardPayload: paymentTokenId => {
+		return {
+			paymentTokenId: paymentTokenId,
+			isDefault: true,
+			redirectUrl: {
+				success: "http://shop.server.com/success?id=123",
+				failure: "http://shop.server.com/failure?id=123",
+				cancel: "http://shop.server.com/cancel?id=123"
+			}
 		}
 	}
 }

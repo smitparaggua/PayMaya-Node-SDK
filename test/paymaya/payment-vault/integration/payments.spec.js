@@ -24,6 +24,12 @@ describe('Payments', () => {
 				});
 		});
 
+		it('allows voiding payment', () => {
+			return createPayment()
+				.then(payment => paymentVault.payment.void(payment.id, "I'm broke"))
+				.should.eventually.include({ status: 'VOIDED' })
+		});
+
 		function createPayment() {
 			return paymentVault.paymentToken.create({
 				number: '5123456789012346',

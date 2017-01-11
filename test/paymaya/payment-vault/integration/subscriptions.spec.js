@@ -1,5 +1,6 @@
 var rek = require('rekuire');
 var paymaya = rek('index');
+var request = require('requestretry');
 
 var testHelper = rek('test-helper');
 var paymentVault = testHelper.createPaymentVault();
@@ -28,15 +29,16 @@ xdescribe('Subscriptions', () => {
 	});
 
 	it('allows creation of subscriptions', () => {
+		console.log(card);
 		var subscriptionDetails = {
 			description: 'Test subscription',
 			interval: 'DAY',
 			intervalCount: 1,
-			startDate: '2016-07-07',
+			startDate: '2019-07-07',
 			endDate: null,
 			totalAmount: { amount: 100, currency: 'PHP' }
 		};
-		return paymaya.subscription
+		return paymentVault.subscription
 			.create(customer.id, card.cardTokenId, subscriptionDetails)
 			.should.be.fulfilled;
 	});
